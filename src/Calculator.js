@@ -68,7 +68,7 @@ const Calculator = () => {
         try {
             // Define a function to handle operator replacement
             const replaceOperators = (input) => {
-                return input.replace(/[+-*/]{2,}/g, (match) => {
+                return input.replace(/[+\-*/]{2,}/g, (match) => {
                     // Handle specific operator combinations
                     if (match.includes('*-+') || match.includes('/-+')) {
                         return '+';
