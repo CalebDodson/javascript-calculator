@@ -46,12 +46,12 @@ const Calculator = () => {
             newInput = newInput.replace(/(\d)[+*/]{2,}/g, '$1' + operator); // Replace multiple operators if not at the start
 
             // Handle leading operator cases
-            if (/^[\+\*\/]/.test(newInput)) {
+            if (/^[+*/]/.test(newInput)) {
                 newInput = newInput.slice(1); // Remove leading operator
             }
 
             // Handle trailing operator
-            if (/[\+\*\/]$/.test(newInput) && operator !== '-') {
+            if (/[+*/]$/.test(newInput) && operator !== '-') {
                 newInput = newInput.slice(0, -1); // Remove trailing operator
             }
 
@@ -68,15 +68,15 @@ const Calculator = () => {
         try {
             // Define a function to handle operator replacement
             const replaceOperators = (input) => {
-                return input.replace(/[\+\-\*\/]{2,}/g, (match) => {
+                return input.replace(/[+-*/]{2,}/g, (match) => {
                     // Handle specific operator combinations
-                    if (match.includes('*-+') || match.includes('\/-+')) {
+                    if (match.includes('*-+') || match.includes('/-+')) {
                         return '+';
                     }
                     if (match.includes('+-*')) {
                         return '*';
                     }
-                    if (match.includes('+-\/')) {
+                    if (match.includes('+-/')) {
                         return '/';
                     }
                     return match;
