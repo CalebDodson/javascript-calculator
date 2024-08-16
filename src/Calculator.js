@@ -13,7 +13,7 @@ const Calculator = () => {
     const numberClick = (value) => {
         setInput(prevInput => {
             // Prevent adding multiple decimal points in the same number
-            const segments = prevInput.split(/[\+\-\*\/]/); // Split input into number segments
+            const segments = prevInput.split(/[+\-*/]/); // Split input into number segments
             const lastSegment = segments[segments.length - 1];
             
             // If the value is a decimal point
@@ -41,9 +41,9 @@ const Calculator = () => {
     const operatorClick = (operator) => {
         setInput(prevInput => {
             // Remove multiple consecutive operators, except for the minus sign
-            let newInput = prevInput.replace(/[\+\*\/]{2,}/g, operator); // Replace multiple "+" "*" "/" with the last operator
-            newInput = newInput.replace(/(\d)[\-]{2,}/g, '$1-'); // Replace multiple "-" with a single "-" when between numbers
-            newInput = newInput.replace(/(\d)[\+\*\/]{2,}/g, '$1' + operator); // Replace multiple operators if not at the start
+            let newInput = prevInput.replace(/[+*/]{2,}/g, operator); // Replace multiple "+" "*" "/" with the last operator
+            newInput = newInput.replace(/(\d)-{2,}/g, '$1-'); // Replace multiple "-" with a single "-" when between numbers
+            newInput = newInput.replace(/(\d)[+*/]{2,}/g, '$1' + operator); // Replace multiple operators if not at the start
 
             // Handle leading operator cases
             if (/^[\+\*\/]/.test(newInput)) {
@@ -90,7 +90,7 @@ const Calculator = () => {
             sanitizedInput = replaceOperators(sanitizedInput);
     
             // Remove any trailing operator
-            if (/[\+\*\-\/]$/.test(sanitizedInput)) {
+            if (/[+*/-]$/.test(sanitizedInput)) {
                 sanitizedInput = sanitizedInput.slice(0, -1);
             }
     
